@@ -1,19 +1,18 @@
 package com.AmberSautner.incidentmanagementsystem.Controllers;
-import java.util.List;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.AmberSautner.incidentmanagementsystem.Entities.Incident;
-import com.AmberSautner.incidentmanagementsystem.Exceptions.ResourceNotFoundException;
+import com.AmberSautner.incidentmanagementsystem.Entities.User;
 import com.AmberSautner.incidentmanagementsystem.Repositories.IncidentRepository;
+import com.AmberSautner.incidentmanagementsystem.Repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api/incidents")
@@ -22,37 +21,27 @@ public class IncidentController {
     @Autowired
     private IncidentRepository incidentRepository;
 
-    // Get all incidents
-    @GetMapping
-    public List<Incident> getAllIncidents() {
-        return incidentRepository.findAll();
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    // Create new incident
     @PostMapping
-    public Incident createIncident(@RequestBody Incident incident) {
-        return incidentRepository.save(incident);
-    }
+    public ResponseEntity<?> createIncident(@RequestBody Incident incident) {
+        // Check if the assigned user exists
+        User assignedUser = incident.getAssignedUser();
+        if (assignedUser != null && assignedUser.getId() != null) {
+            Optional<User> user = userRepository.findById(assignedUser.getId());
+            if (user.isPresent()) {
+                // Set the actual user object from the database
+                incident.setAssignedUser(user.get());
+            } else {
+                return ResponseEntity.badRequest().body("Assigned user not found.");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Assigned user is required.");
+        }
 
-    // Get incident by ID
-    @GetMapping("/{id}")
-    public Incident getIncidentById(@PathVariable Long id) {
-        return incidentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Incident not found"));
-    }
-
-    // Update an incident
-    @PutMapping("/{id}")
-    public Incident updateIncident(@PathVariable Long id, @RequestBody Incident updatedIncident) {
-        Incident existingIncident = incidentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Incident not found"));
-        existingIncident.setTitle(updatedIncident.getTitle());
-        existingIncident.setDescription(updatedIncident.getDescription());
-        existingIncident.setStatus(updatedIncident.getStatus());
-        return incidentRepository.save(existingIncident);
-    }
-
-    // Delete an incident
-    @DeleteMapping("/{id}")
-    public void deleteIncident(@PathVariable Long id) {
-        incidentRepository.deleteById(id);
+        // Save the incident
+        Incident savedIncident = incidentRepository.save(incident);
+        return ResponseEntity.ok(savedIncident);
     }
 }

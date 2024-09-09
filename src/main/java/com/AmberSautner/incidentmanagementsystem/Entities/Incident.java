@@ -23,15 +23,16 @@ public class Incident {
     private String status;
     private String priority;
 
-    @ManyToOne
-    @JoinColumn(name = "assigned_user_id")
-    private User assignedUser;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    // Many-to-one relationship to User
+    @ManyToOne
+    @JoinColumn(name = "assigned_user_id", nullable = false) // Maps assigned_user_id in Incident to id in User
+    private User assignedUser;
 
     // Getters and Setters
 
@@ -75,14 +76,6 @@ public class Incident {
         this.priority = priority;
     }
 
-    public User getAssignedUser() {
-        return assignedUser;
-    }
-
-    public void setAssignedUser(User assignedUser) {
-        this.assignedUser = assignedUser;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -97,5 +90,13 @@ public class Incident {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
     }
 }
