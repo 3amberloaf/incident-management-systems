@@ -4,6 +4,8 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 
 ## Overview
 
+
+
 ### Problem
 
  - Understand the purpose of the system: to manage IT incidents, track progress, assign tasks, and resolve issues.
@@ -34,6 +36,11 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 
 ### Database (MySQL/PostgreSQL)
 - Use a **relational database** to manage incident data, including users, incidents, and audit logs.
+- CRUD method
+      - Create incidents (with POST requests).
+      - Read incidents (with GET requests).
+      - Update incidents (with PUT requests).
+      - Delete
 - Design tables for **Incidents**, **Users**, and **Audit Logs**.
 
 ## Development Steps
