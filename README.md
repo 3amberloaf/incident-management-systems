@@ -5,7 +5,6 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 ## Overview
 
 
-
 ### Problem
 
  - Understand the purpose of the system: to manage IT incidents, track progress, assign tasks, and resolve issues.
@@ -105,3 +104,6 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/amberloaf/incident-management-system.git
+
+2. Run 
+      ``mvn spring-boot:run   ``
