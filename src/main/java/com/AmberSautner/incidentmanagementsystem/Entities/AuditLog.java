@@ -58,7 +58,10 @@ public class AuditLog {
 
     public void setAction(String action) {
         this.action = action;
+        
     }
+
+    
 
     public String getEntity() {
         return entity;

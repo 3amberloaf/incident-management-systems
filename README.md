@@ -55,6 +55,7 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 - Set up **repositories** using **Spring Data JPA**.
       - interfaces that provide CRUD operations and handle the interaction between your Java application and the database
 - Create **controllers** to handle API requests for incidents, users, and logs.
+      - Controllers are annotated with @RestController and typically use @RequestMapping to define the endpoint paths.
 - Implement **JWT-based authentication** and **role-based access control (RBAC)** using **Spring Security**.
 
 ### 3. Frontend Development
