@@ -11,11 +11,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()  // Disable CSRF (Cross-Site Request Forgery) for development
-            .authorizeRequests()
-            .anyRequest().permitAll();  // Allow all requests without authentication
+            .csrf(csrf -> csrf.disable())  // Disable CSRF (Cross-Site Request Forgery) for development
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()  // Allow all requests without authentication
+            );
 
         return http.build();
     }
 }
-   
