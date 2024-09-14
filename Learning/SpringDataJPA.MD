@@ -29,9 +29,13 @@ Spring Data JPA is a part of the larger Spring Data family, and it simplifies th
 Spring Data JPA provides different repository interfaces to abstract data access operations. Some of the commonly used ones are:
 
 - **`CrudRepository<T, ID>`**: Provides basic CRUD operations.
-- **`JpaRepository<T, ID>`**: Extends `CrudRepository` and provides more JPA-specific functionality like batch processing.
-- **`PagingAndSortingRepository<T, ID>`**: Adds methods for pagination and sorting.
-
+   - CRUD Operations: By extending JpaRepository (or CrudRepository), you automatically get methods like:
+      - save(): Create or update an entity.
+      - findById(): Retrieve an entity by its ID.
+      - findAll(): Retrieve all entities.
+      - deleteById(): Delete an entity by its ID.
+   - Can create custom Query methods
+   
 #### Example:
 
 ```java
@@ -39,3 +43,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Long> {
     // Custom query methods
     List<Incident> findByStatus(String status);
 }
+
+- **`JpaRepository<T, ID>`**: Extends `CrudRepository` and provides more JPA-specific functionality like batch processing.
+- **`PagingAndSortingRepository<T, ID>`**: Adds methods for pagination and sorting.
+

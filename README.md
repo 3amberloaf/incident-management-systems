@@ -47,11 +47,13 @@ The Incident Management System aims to streamline the tracking, assignment, and 
 ### 1. Set Up the Development Environment
 - **Backend**: Create a Spring Boot project using **Spring Initializr** with dependencies like Spring Web, Spring Security, and JPA.
 - **Frontend**: Set up the React.js project using **Create React App**.
-- **Database**: Configure **MySQL** or **PostgreSQL** with the Spring Boot backend.
+- **Database**: Configure **MySQL** with the Spring Boot backend.
 
 ### 2. Backend Development
 - Define **models**: Incident, User, Audit Log.
+      - define the structure of the data
 - Set up **repositories** using **Spring Data JPA**.
+      - interfaces that provide CRUD operations and handle the interaction between your Java application and the database
 - Create **controllers** to handle API requests for incidents, users, and logs.
 - Implement **JWT-based authentication** and **role-based access control (RBAC)** using **Spring Security**.
 
